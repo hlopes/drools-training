@@ -46,10 +46,8 @@ public class VisaIssue {
 
     passports.forEach(ksession::insert);
 
-
     List<VisaApplication> visaApplications = ApplicationRepository.getVisaApplications();
     visaApplications.forEach(ksession::insert);
-
 
     if (step == 3) {
       Agenda agenda = ksession.getAgenda();
@@ -60,14 +58,12 @@ public class VisaIssue {
       agenda.getAgendaGroup("invalid-passport").setFocus();
     }
 
-
     if (step == 4 || step == 5) {
       Agenda agenda = ksession.getAgenda();
       agenda.getAgendaGroup("issue-visa").setFocus();
       agenda.getAgendaGroup("validate-application").setFocus();
       agenda.getAgendaGroup("validate-passport").setFocus();
     }
-
 
     /** BONUS STEP: set focus to the first agenda group only */
     if (step == 6) {
@@ -79,16 +75,18 @@ public class VisaIssue {
     ksession.fireAllRules();
     System.out.println("==== DROOLS SESSION END ==== ");
 
-    List<Visa> visaObjects = ksession
-      .getObjects(o -> o.getClass() == Visa.class).stream()
-      .map(o -> (Visa) o)
-      .collect(Collectors.toList());
+    var visaObjects = ksession
+        .getObjects(o -> o.getClass() == Visa.class).stream()
+        .map(o -> (Visa) o)
+        .collect(Collectors.toList());
+
     System.out.println("== Visas from session == ");
     visaObjects.forEach(System.out::println);
 
     if (Common.disposeSession) {
       ksession.dispose();
     }
+
     return visaObjects;
   }
 

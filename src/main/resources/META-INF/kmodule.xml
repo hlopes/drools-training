@@ -37,7 +37,9 @@
   <kbase packages="io.github.aasaru.drools.section04.step2">
     <ksession name="StatefulPassportValidationStep2"/>
   </kbase>
-
+  <kbase packages="io.github.aasaru.drools.section04.step3">
+    <ksession name="StatefulPassportValidationStep3"/>
+  </kbase>
 
   <kbase packages="io.github.aasaru.drools.section05.step1">
     <ksession name="VisaApplicationStep1"/>

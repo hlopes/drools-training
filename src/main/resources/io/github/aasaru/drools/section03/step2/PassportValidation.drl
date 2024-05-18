@@ -1,11 +1,11 @@
 package io.github.aasaru.drools.section03.step2
 
-import io.github.aasaru.drools.domain.Passport;
+import io.github.aasaru.drools.domain.NewPassport;
 
 rule "Valid passport"
   dialect "java"
   when
-	Passport( !isExpired(), unusedVisaPages > 0 )
+	NewPassport( !isExpired(), unusedVisaPages > 0 )
   then
 	System.out.println( "This passport is CORRECT" );
 end
@@ -13,7 +13,7 @@ end
 rule "Expired passport"
   dialect "java"
   when
-	Passport( isExpired() )
+	NewPassport( isExpired() )
   then
 	System.out.println( "This passport is INVALID because it is expired" );
 end
@@ -21,7 +21,7 @@ end
 rule "Full passport"
   dialect "java"
   when
-	Passport( unusedVisaPages == 0 )
+	NewPassport( unusedVisaPages == 0 )
   then
 	System.out.println( "This passport is INVALID because it has no space for visa" );
 end

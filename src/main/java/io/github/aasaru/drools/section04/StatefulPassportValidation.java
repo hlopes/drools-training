@@ -11,6 +11,7 @@
 package io.github.aasaru.drools.section04;
 
 import io.github.aasaru.drools.Common;
+import io.github.aasaru.drools.domain.NewPassport;
 import io.github.aasaru.drools.domain.Passport;
 import io.github.aasaru.drools.repository.ApplicationRepository;
 import org.kie.api.KieServices;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class StatefulPassportValidation {
   public static void main(final String[] args) {
-    execute(Common.promptForStep(4, args, 1, 2));
+    execute(Common.promptForStep(4, args, 1, 3));
   }
 
   static void execute(int step) {
@@ -29,7 +30,7 @@ public class StatefulPassportValidation {
     KieContainer kieClasspathContainer = KieServices.Factory.get().getKieClasspathContainer();
     KieSession ksession = kieClasspathContainer.newKieSession("StatefulPassportValidationStep" + step);
 
-    List<Passport> passports = ApplicationRepository.getPassports();
+    List<NewPassport> passports = ApplicationRepository.getNewPassports();
     passports.forEach(ksession::insert);
 
     System.out.println("==== DROOLS SESSION START ==== ");
