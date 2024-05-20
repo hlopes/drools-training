@@ -11,7 +11,7 @@ rule "Invalidate visa application with invalid passport"
     $visaApplication: VisaApplication( passportNumber == $passport.passportNumber,
                                        validation != Validation.FAILED )
   then
-    System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " hasn't passed validation");
+    LoggingUtil.info( "Set " + $visaApplication + " invalid as " + $passport + " hasn't passed validation");
     modify($visaApplication) {
       setValidation( Validation.FAILED )
     }
@@ -22,7 +22,7 @@ rule "Set application without validation info as passed"
   when
     $visaApplication: VisaApplication( validation == Validation.UNKNOWN )
   then
-    System.out.println( $visaApplication + " is without validation info, consider OK for now" );
+    LoggingUtil.info( $visaApplication + " is without validation info, consider OK for now" );
     modify($visaApplication) {
       setValidation( Validation.PASSED )
     }
@@ -36,7 +36,7 @@ rule "Invalidate visa application where passport expires earlier than 6 months a
                                        $passport.expiresOn.isBefore(visitEndDate.plusMonths(6)),
                                        validation != Validation.FAILED )
   then
-    System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " not valid 6 months after visit");
+    LoggingUtil.info( "Set " + $visaApplication + " invalid as " + $passport + " not valid 6 months after visit");
     modify($visaApplication) {
       setValidation( Validation.FAILED )
     }

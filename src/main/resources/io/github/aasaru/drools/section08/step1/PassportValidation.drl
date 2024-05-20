@@ -2,22 +2,19 @@ package io.github.aasaru.drools.section08.step1
  
 import io.github.aasaru.drools.domain.InvalidPassport;
 import io.github.aasaru.drools.domain.Passport;
-import io.github.aasaru.drools.domain.Validation;
 
 rule "Expired passport"
-	dialect "java"
 	when
-		$passport: Passport( isExpired()  )
+		$passport: Passport(isExpired())
 	then
-		System.out.println( $passport + " is INVALID because it is expired" );
-		insert( new InvalidPassport($passport) );
+		LoggingUtil.info($passport + " is INVALID because it is expired");
+		insert(new InvalidPassport($passport));
 end
 
 rule "Full passport"
-	dialect "java"
 	when
-		$passport: Passport( unusedVisaPages == 0   )
+		$passport: Passport(unusedVisaPages == 0)
 	then
-		System.out.println( $passport + " is INVALID because it has no space for visa" );
-		insert( new InvalidPassport($passport) );
+		LoggingUtil.info( $passport + " is INVALID because it has no space for visa" );
+		insert(new InvalidPassport($passport));
 end

@@ -3,6 +3,7 @@ package io.github.aasaru.drools.section07.step1
 import io.github.aasaru.drools.domain.Validation;
 import io.github.aasaru.drools.domain.VisaApplication;
 import io.github.aasaru.drools.domain.Visa;
+import io.github.aasaru.drools.LoggingUtil;
 
 rule "Issue visa for valid applications"
 	dialect "java"
@@ -10,6 +11,6 @@ rule "Issue visa for valid applications"
 	  $visaApplication: VisaApplication( validation == Validation.PASSED )
 	then
 	  Visa visa = new Visa( $visaApplication.getPassportNumber() );
-	  System.out.println("Issue " + visa);
+	  LoggingUtil.info("Issue " + visa);
 	  insertLogical( visa );
 end
