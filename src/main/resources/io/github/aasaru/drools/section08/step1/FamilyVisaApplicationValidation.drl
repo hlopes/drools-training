@@ -8,6 +8,7 @@ import io.github.aasaru.drools.LoggingUtil;
 rule "Invalidate visa applications with invalid passport"
 	when
 		$familyVisaApplication: FamilyVisaApplication( )
+		// not (InvalidFamilyVisaApplication(familyVisaApplication == $familyVisaApplication))
 		InvalidPassport($familyVisaApplication.passportNumbers.contains(this.passport.passportNumber))
 	then
 		LoggingUtil.info( "Set " + $familyVisaApplication + " invalid as it contains invalid passport");
